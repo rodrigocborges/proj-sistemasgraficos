@@ -1,20 +1,29 @@
+import random
 import sys
+import time
+
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 from draw_symbol import DrawSymbol
-
+import numpy as np
 # The display() method does all the work; it has to call the appropriate
 # OpenGL functions to actually display something.
+
+def rotate(time,):
+    glutPostRedisplay()
+    glutTimerFunc(1000, rotate, 0)
 
 def display():
     # Clear the color and depth buffers
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glEnable(GL_DEPTH_TEST)
     glEnable(GL_FOG)
-
     glPushMatrix()
-    glScalef(0.1, 0.1, 0.1)
+    glScalef(0.15, 0.15, 0.15)
+    #angle = random.choice([0, 180])
+    angle = 0
+    glRotate(angle, 0, 0, 1)
     DrawSymbol()
     glPopMatrix()
     # ... render stuff in here ...
@@ -29,11 +38,12 @@ glutInit(sys.argv)
 glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
 
 # Create a window, setting its title
-glutCreateWindow('FURG - Rodrigo e Glória')
+glutCreateWindow('FURG - Rodrigo e Gloria')
 
 # Set the display callback.  You can set other callbacks for keyboard and
 # mouse events.
 glutDisplayFunc(display)
 
+glutTimerFunc(10, rotate, 0)
 # Run the GLUT main loop until the user closes the window.
 glutMainLoop()
