@@ -99,28 +99,27 @@ class DrawSymbol:
         glRotatef(-30, 0, 0, 1)
         glScaled(0.3, 0.8, 1)
         glut.glutSolidCube(1)
+        glRotatef(30, 0, 0, 1)
         self.draw_space_to_border_right()
 
     def draw_space_to_border_right(self):
-        glLoadIdentity()
         glColor3ub(0, 0, 0)
-        glTranslated(0.013, 0.18, 0)
+        glTranslated(2.9, -0.63, 0)
         glRotatef(45, 0, 0, 1)
-        glScaled(0.03, 0.07, 1)
+        glScaled(0.8, 1.9, 1)
         glut.glutSolidCube(1)
+        glRotatef(-38, 0, 0, 1)
         self.draw_border_right()
 
     def draw_border_right(self):
-        glLoadIdentity()
-        glColor3ub(255, 55, 35)
-        glTranslated(0.0055, 0.16, 1)
-        glScaled(0.032, 0.05, 1)
+        glColor3ub(255, 35, 35)
+        glTranslated(-0.37, -0.5, 0)
+        glScaled(0.45, 0.9, 1)
         glut.glutSolidCube(1)
         self.draw_border_left()
 
     def draw_border_left(self):
-        glLoadIdentity()
-        glColor3ub(185, 25, 25)
-        glTranslated(-0.12, 0.16, 0)
-        glScaled(0.032, 0.05, 0)
+        glColor3ub(255, 35, 35)
+        glTranslated(-3.85, 0, 0)
+        glScaled(1, 1, 1)
         glut.glutSolidCube(1)

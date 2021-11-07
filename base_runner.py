@@ -21,8 +21,7 @@ def display():
     glEnable(GL_FOG)
     glPushMatrix()
     glScalef(0.15, 0.15, 0.15)
-    #angle = random.choice([0, 180])
-    angle = 0
+    angle = random.choice([0, 180])
     glRotate(angle, 0, 0, 1)
     DrawSymbol()
     glPopMatrix()
