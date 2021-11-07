@@ -14,6 +14,10 @@ def rotate(time,):
     glutPostRedisplay()
     glutTimerFunc(1000, rotate, 0)
 
+def translate(time,):
+    glutPostRedisplay()
+    glutTimerFunc(1000, translate, 0)
+
 def display():
     # Clear the color and depth buffers
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
@@ -22,7 +26,10 @@ def display():
     glPushMatrix()
     glScalef(0.15, 0.15, 0.15)
     angle = random.choice([0, 180])
+    position_x = random.randint(0, 5)
+    position_y = random.randint(0, 5)
     glRotate(angle, 0, 0, 1)
+    glTranslate(position_x, position_y, 0)
     DrawSymbol()
     glPopMatrix()
     # ... render stuff in here ...
