@@ -5,18 +5,21 @@ import time
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
+
+from draw_morrinho import DrawMorrinho
 from draw_symbol import DrawSymbol
 import numpy as np
 # The display() method does all the work; it has to call the appropriate
 # OpenGL functions to actually display something.
+global time_control
+time_control = 0
 
-def rotate(time,):
-    glutPostRedisplay()
-    glutTimerFunc(1000, rotate, 0)
 
-def translate(time,):
+def create_scene(time,):
+    global time_control
+    time_control = time_control + 1
+    glutTimerFunc(2000, create_scene, 0)
     glutPostRedisplay()
-    glutTimerFunc(1000, translate, 0)
 
 def display():
     # Clear the color and depth buffers
@@ -25,12 +28,17 @@ def display():
     glEnable(GL_FOG)
     glPushMatrix()
     glScalef(0.15, 0.15, 0.15)
-    angle = random.choice([0, 180])
+    angle = random.choice([0, 20, 30, 50, 60])
     position_x = random.randint(0, 5)
     position_y = random.randint(0, 5)
-    glRotate(angle, 0, 0, 1)
-    glTranslate(position_x, position_y, 0)
-    DrawSymbol()
+    global time_control
+    if time_control < 5 or time_control > 15:
+        DrawSymbol()
+    else:
+        print(angle)
+        glRotate(angle, 0, 1, 0)
+        DrawMorrinho()
+
     glPopMatrix()
     # ... render stuff in here ...
     # It will go to an off-screen frame buffer.
@@ -50,6 +58,7 @@ glutCreateWindow('FURG - Rodrigo e Gloria')
 # mouse events.
 glutDisplayFunc(display)
 
-glutTimerFunc(10, rotate, 0)
+glutTimerFunc(10, create_scene, 0)
+
 # Run the GLUT main loop until the user closes the window.
 glutMainLoop()
