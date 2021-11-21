@@ -1,9 +1,15 @@
 from OpenGL.GL import *
 import OpenGL.GLUT as glut
+from PIL import Image
+import numpy
 
 
 class DrawMorrinho:
     def __init__(self):
+        self.tree = Image.open('tree_texture.jpg').convert('RGBA')
+        self.height = self.tree.height
+        self.width = self.tree.width
+        self.image_content = numpy.array(list(self.tree.getdata()), numpy.uint8)
         self.draw_floor()
 
     def draw_floor(self):
@@ -13,39 +19,41 @@ class DrawMorrinho:
         glTranslated(0, -1.3, 0)
         glScaled(1.1, 1, 1)
         glut.glutSolidSphere(1, 200, 200)
-        self.draw_three()
+        self.draw_tree()
         glTranslated(3, -50, -2)
         glScaled(8, 50, 8)
-        self.draw_three()
+        self.draw_tree()
         glTranslated(-7, -70, 2)
         glScaled(8, 50, 8)
-        self.draw_three()
+        self.draw_tree()
         glTranslated(-4, -70, 2)
         glScaled(8, 50, 8)
-        self.draw_three()
+        self.draw_tree()
         glTranslated(15, -70, 0)
         glScaled(8, 50, 8)
-        self.draw_three()
+        self.draw_tree()
         glTranslated(4, -70, -2)
         glScaled(8, 50, 8)
-        self.draw_three()
+        self.draw_tree()
         glTranslated(-10, -10, -1)
         glScaled(8, 50, 8)
-        self.draw_three()
+        self.draw_tree()
         glTranslated(-7, -80, 2)
         glScaled(8, 50, 8)
-        self.draw_three()
+        self.draw_tree()
         glTranslated(-5, -80, -3)
         glScaled(8, 50, 8)
-        self.draw_three()
+        self.draw_tree()
         glTranslated(-3, -50, 5)
         glScaled(8, 50, 8)
-        self.draw_three()
+        self.draw_tree()
 
-    def draw_three(self):
+    def draw_tree(self):
+        self.enable_tree_texture()
         glColor3ub(150, 75, 0)
         glScaled(0.05, 2, 0.05)
         glut.glutSolidSphere(1, 200, 200)
+        self.disable_texture()
         glTranslated(0, 1, 0)
         glScaled(1, 0.01, 1)
         glColor3ub(0, 128, 0)
@@ -108,3 +116,11 @@ class DrawMorrinho:
         glScaled(0.5, 1, 0.5)
         glut.glutSolidCube(1)
 
+    def enable_tree_texture(self):
+        glEnable(GL_TEXTURE_2D)
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, self.width, self.height, 0, GL_RGBA, GL_UNSIGNED_BYTE,
+                     self.image_content)
+        glGenerateMipmap(GL_TEXTURE_2D)
+
+    def disable_texture(self):
+        glDisable(GL_TEXTURE_2D)
